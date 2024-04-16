@@ -6,7 +6,7 @@ import joblib
 from xgboost import XGBClassifier
 from prediction import get_prediction, ordinal_encoder
 
-model = joblib.load(r'EDA/RTA/Model/xgb_final.joblib')
+model = joblib.load(r'EDA/RTA/Model/xtr_final.joblib')
 
 st.set_page_config(page_title="Accident Severity Prediction", layout="wide")
 
@@ -78,7 +78,8 @@ options_vehicle_driver_relation = ['Employee', 'Unknown', 'Owner', 'Other']
 
 
 
-features_new = ['Defect_of_vehicle', 'Type_of_vehicle', 'Owner_of_vehicle']
+features_new = ['Defect_of_vehicle', 'Type_of_vehicle', 'Owner_of_vehicle', 'Number_of_vehicles_involved','Pedestrian_movement','Sex_of_driver', 
+                 'Vehicle_driver_relation', 'Road_surface_conditions', 'Service_year_of_vehicle', 'Fitness_of_casuality']
 
 st.markdown("<h1 style = 'text-align: center;'>Accident Severity Prediction </h1>", unsafe_allow_html = True)
 
@@ -88,20 +89,28 @@ def main():
         st.subheader("Input following features")
 
         defect_of_vehicle = st.selectbox("Select Vehicle Defect: ", options = options_defect_vehicle)
+        vehicles_involved = st.selectbox("Select Number of Vehicles involved: ", options = options_num_vehicles )
         vehicle_type = st.selectbox("Select Vehicle Type: ", options = options_vehicle_type)
         owner_of_vehicle = st.selectbox("Select Owner Type: ", options = options_vehicle_owner)
-        
+        pedestrian_movement = st.selectbox("Select pedestrian: ", options = options_pedestrian)
+        sex_of_driver = st.selectbox("Select Driver sex: ", options = options_sex_of_driver)
+        road_surface_conditions = st.selectbox("Select surface condition: ", options = options_road_condition)
+        vehicle_driver_relation = st.selectbox("Select relation: ", options = options_vehicle_driver_relation)
         
         submit = st.form_submit_button("Predict")
 
     if submit:
         defect_of_vehicle = ordinal_encoder(defect_of_vehicle, options_defect_vehicle)
         vehicle_type = ordinal_encoder(vehicle_type, options_vehicle_type)
+        road_surface_conditions = ordinal_encoder(road_surface_conditions, options_road_condition)
+        pedestrian_movement = ordinal_encoder(pedestrian_movement, options_pedestrian)
         owner_of_vehicle = ordinal_encoder(owner_of_vehicle, options_vehicle_owner)
-        
-        
+        vehicles_involved = ordinal_encoder(vehicles_involved, options_num_vehicles)
+        sex_of_driver = ordinal_encoder(sex_of_driver, options_sex_of_driver)
+        vehicle_driver_relation = ordinal_encoder(vehicle_driver_relation, options_vehicle_driver_relation)
 
-        data = np.array(['Defect_of_vehicle', 'Type_of_vehicle', 'Owner_of_vehicle']).reshape(1,-1)
+        data = np.array(['Defect_of_vehicle', 'Type_of_vehicle', 'Owner_of_vehicle', 'Number_of_vehicles_involved','Pedestrian_movement','Sex_of_driver', 
+                 'Vehicle_driver_relation', 'Road_surface_conditions', 'Service_year_of_vehicle', 'Fitness_of_casuality']).reshape(1,-1)
 
         pred = get_prediction(data=data, model = model)
 
