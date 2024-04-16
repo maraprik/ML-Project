@@ -74,7 +74,7 @@ options_service_vehicle = ['Above 10yr', '5-10yrs', '1-2yr', '2-5yrs', 'Unknown'
 
 options_casualty_fitness = ['Normal', 'Deaf', 'Other', 'Blind', 'NormalNormal']
 
-options_vehicle_owner_relation = ['Employee', 'Unknown', 'Owner', 'Other']
+options_vehicle_driver_relation = ['Employee', 'Unknown', 'Owner', 'Other']
 
 
 
@@ -97,8 +97,8 @@ def main():
         road_surface_conditions = st.selectbox("Select surface condition: ", options = options_road_condition)
         service_year_of_vehicle = st.selectbox("Select vehicle service year: ", options = options_service_vehicle)
         fitness_of_casuality = st.selectbox("Select fitness: ", options = options_casualty_fitness)
-        vehicle_driver_relation = st.selectbox("Select relation: ", options = options_casualty_fitness)
-
+        vehicle_driver_relation = st.selectbox("Select relation: ", options = options_vehicle_driver_relation)
+        
         submit = st.form_submit_button("Predict")
 
     if submit:
@@ -109,6 +109,9 @@ def main():
         pedestrian_movement = ordinal_encoder(pedestrian_movement, options_pedestrian)
         owner_of_vehicle = ordinal_encoder(owner_of_vehicle, options_vehicle_owner)
         vehicles_involved = ordinal_encoder(vehicles_involved, options_num_vehicles)
+        sex_of_driver = ordinal_encoder(sex_of_driver, options_sex_of_driver)
+        fitness_of_casuality = ordinal_encoder(fitness_of_casuality, options_casualty_fitness)
+        vehicle_driver_relation = ordinal_encoder(vehicle_driver_relation, options_vehicle_driver_relation)
 
         data = np.array(['Defect_of_vehicle', 'Type_of_vehicle', 'Owner_of_vehicle', 'Number_of_vehicles_involved','Pedestrian_movement','Sex_of_driver', 
                  'Vehicle_driver_relation', 'Road_surface_conditions', 'Service_year_of_vehicle', 'Fitness_of_casuality']).reshape(1,-1)
