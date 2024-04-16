@@ -89,9 +89,8 @@ def main():
         st.subheader("Input following features")
 
         defect_of_vehicle = st.selectbox("Select Vehicle Defect: ", options = options_defect_vehicle)
-        vehicles_involved = st.selectbox("Select Number of Vehicles involved: ", options = options_num_vehicles )
         vehicle_type = st.selectbox("Select Vehicle Type: ", options = options_vehicle_type)
-  
+        owner_of_vehicle= st.selectbox("Select Vehicle Type: ", options = options_vehicle_owner)
 
         submit = st.form_submit_button("Predict")
 
