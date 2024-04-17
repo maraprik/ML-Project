@@ -88,19 +88,19 @@ def main():
 
         st.subheader("Input following features")
 
-        #defect_of_vehicle = st.selectbox("Select Vehicle Defect: ", options = options_defect_vehicle)
+        defect_of_vehicle = st.selectbox("Select Vehicle Defect: ", options = options_defect_vehicle)
         vehicle_type = st.selectbox("Select Vehicle Type: ", options = options_vehicle_type)
-        owner_of_vehicle= st.selectbox("Select Vehicle Type: ", options = options_vehicle_owner)
+        owner_of_vehicle= st.selectbox("Select Vehicle Owner: ", options = options_vehicle_owner)
 
         submit = st.form_submit_button("Predict")
 
     if submit:
-        #defect_of_vehicle = ordinal_encoder(defect_of_vehicle, options_defect_vehicle)
+        defect_of_vehicle = ordinal_encoder(defect_of_vehicle, options_defect_vehicle)
         vehicle_type = ordinal_encoder(vehicle_type, options_vehicle_type)
         owner_of_vehicle = ordinal_encoder(owner_of_vehicle, options_vehicle_owner)
 
 
-        data = np.array(['Type_of_vehicle', 'Owner_of_vehicle']).reshape(1,-1)
+        data = np.array([defect_of_vehicle, vehicle_type,  owner_of_vehicle]).reshape(1,-1)
 
         pred = get_prediction(data=data, model = model)
 
