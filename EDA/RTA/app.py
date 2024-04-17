@@ -94,7 +94,7 @@ def main():
         driving_experience = st.selectbox("Select Driving Experience: ", options = options_driver_exp)
         light_conditions = st.selectbox("select light conditions:", options = options_light_condition)
         service_years = st.selectbox("select service years:", options = options_service_vehicle)
-        num_vehicles = st.selectbox("select num Vehicle:", options = options_num_vehicles)
+
 
         submit = st.form_submit_button("Predict")
 
@@ -107,10 +107,9 @@ def main():
         driving_experience = ordinal_encoder(driving_experience, options_driver_exp)
         light_conditions = ordinal_encoder(light_conditions, options_light_condition)
         service_years = ordinal_encoder(service_years, options_service_vehicle)
-        num_vehicles = ordinal_encoder(num_vehicles, options_num_vehicles)
 
         data = np.array([defect_of_vehicle, vehicle_type, light_conditions, owner_of_vehicle,
-                           driving_experience, road_surface, driver_age, service_years, num_vehicles  ]).reshape(1,-1)
+                           driving_experience, road_surface, driver_age, service_years]).reshape(1,-1)
 
         pred = get_prediction(data=data, model = model)
 
