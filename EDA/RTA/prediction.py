@@ -10,11 +10,19 @@ from xgboost import XGBClassifier
   #  value = feat_dict.map(input_val)
    # return value
 
+#def ordinal_encoder(input_val, feats):
+    #for feat in feats:
+    #feat_val = list(np.arange(df[feats].nunique()))
+    #feat_key = list(df[feat].sort_values().unique())
+    #feat_dict = dict(zip(feat_key, feat_val))
+    #df[feat] = df[feat].map(feat_dict)
+    #return df
+
 def ordinal_encoder(input_val, feats):
     feat_val = list(1+np.arange(len(feats)))
     feat_key = list(feats)
     feat_dict = dict(zip(feats, feat_val))
-    value=feat_dict[input_val]
+    value=[feat_dict[val] for val in input_val]
     return value
 """
 def ordinal_encoder(input_val, feats):
