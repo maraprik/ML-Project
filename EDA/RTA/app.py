@@ -102,7 +102,6 @@ def main():
         defect_of_vehicle = ordinal_encoder(defect_of_vehicle, options_defect_vehicle)
         vehicle_type = ordinal_encoder(vehicle_type, options_vehicle_type)
         owner_of_vehicle = ordinal_encoder(owner_of_vehicle, options_vehicle_owner)
-        day_of_week = ordinal_encoder(day_of_week, options_day)
         road_surface = ordinal_encoder(road_surface, options_road_condition)
         driver_age = ordinal_encoder(driver_age, options_age)
         driving_experience = ordinal_encoder(driving_experience, options_driver_exp)
