@@ -19,11 +19,24 @@ from xgboost import XGBClassifier
     #return df
 
 def ordinal_encoder(input_val, feats):
-    feat_val = list(1+np.arange(len(feats)))
-    feat_key = list(feats)
+    #print("Input value:", input_val)
+    #print("Feats list:", feats)
+    feat_val = list(range(1, len(feats) + 1))  # Generate ordinal values starting from 1
     feat_dict = dict(zip(feats, feat_val))
-    value=[feat_dict[val] for val in input_val]
-    return value
+    if isinstance(input_val, str):  # Check if input is a single string
+        #print("Single input value")
+        return feat_dict[input_val]  # Return the ordinal value for the input string
+    else:  # If input is a list of strings
+        #print("List of input values")
+        return [feat_dict[val] for val in input_val]
+
+###
+#def ordinal_encoder(input_val, feats):
+    #feat_val = list(1+np.arange(len(feats)))
+    #feat_key = list(feats)
+    #feat_dict = dict(zip(feats, feat_val))
+    #value=[feat_dict[val] for val in input_val]
+    #return value
 """
 def ordinal_encoder(input_val, feats):
     feat_val = list(range(1, len(feats) + 1))  # Generate ordinal values starting from 1
