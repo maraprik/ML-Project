@@ -87,15 +87,10 @@ def main():
     with st.form('prediction_form'):
 
         st.subheader("Input following features")
-        hour = st.slider("Pickup Hour: ", 0, 23, value=0, format="%d")
-        day_of_week = st.selectbox("Select Day of Week: ", options = options_day)
+
         defect_of_vehicle = st.selectbox("Select Vehicle Defect: ", options = options_defect_vehicle)
         vehicle_type = st.selectbox("Select Vehicle Type: ", options = options_vehicle_type)
         owner_of_vehicle= st.selectbox("Select Vehicle Owner: ", options = options_vehicle_owner)
-        road_surface = st.selectbox("Select Road Surface condition: ", options = options_road_condition)
-        driver_age = st.selectbox("Select Driver Age: ", options = options_age)
-        driving_experience = st.selectbox("Select Driving Experience: ", options = options_driver_exp)
-        light_conditions = st.selectbox("select light conditions:", options = options_light_condition)
 
         submit = st.form_submit_button("Predict")
 
@@ -103,14 +98,9 @@ def main():
         defect_of_vehicle = ordinal_encoder(defect_of_vehicle, options_defect_vehicle)
         vehicle_type = ordinal_encoder(vehicle_type, options_vehicle_type)
         owner_of_vehicle = ordinal_encoder(owner_of_vehicle, options_vehicle_owner)
-        day_of_week = ordinal_encoder(day_of_week, options_day)
-        road_surface = ordinal_encoder(road_surface, options_road_condition)
-        driver_age = ordinal_encoder(driver_age, options_age)
-        driving_experience = ordinal_encoder(driving_experience, options_driver_exp)
-        light_conditions = ordinal_encoder(light_conditions, options_light_condition)
 
-        data = np.array([hour, day_of_week, defect_of_vehicle, vehicle_type, light_conditions, owner_of_vehicle,
-                           driving_experience, road_surface  ]).reshape(1,-1)
+
+        data = np.array([defect_of_vehicle, vehicle_type,  owner_of_vehicle]).reshape(1,-1)
 
         pred = get_prediction(data=data, model = model)
 
