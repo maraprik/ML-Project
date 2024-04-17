@@ -78,7 +78,6 @@ options_casualty_fitness = ['Normal', 'Deaf', 'Other', 'Blind', 'NormalNormal']
 options_vehicle_owner_relation = ['Employee', 'Unknown', 'Owner', 'Other']
 
 
-
 features_new = ['Type_of_vehicle', 'Owner_of_vehicle']
 
 st.markdown("<h1 style = 'text-align: center;'>Accident Severity Prediction </h1>", unsafe_allow_html = True)
@@ -87,8 +86,6 @@ def main():
     with st.form('prediction_form'):
 
         st.subheader("Input following features")
-        hour = st.slider("Pickup Hour: ", 0, 23, value=0, format="%d")
-        day_of_week = st.selectbox("Select Day of Week: ", options = options_day)
         defect_of_vehicle = st.selectbox("Select Vehicle Defect: ", options = options_defect_vehicle)
         vehicle_type = st.selectbox("Select Vehicle Type: ", options = options_vehicle_type)
         owner_of_vehicle= st.selectbox("Select Vehicle Owner: ", options = options_vehicle_owner)
@@ -96,6 +93,8 @@ def main():
         driver_age = st.selectbox("Select Driver Age: ", options = options_age)
         driving_experience = st.selectbox("Select Driving Experience: ", options = options_driver_exp)
         light_conditions = st.selectbox("select light conditions:", options = options_light_condition)
+        service_years = st.selectbox("select service years:", options = options_service_vehicle)
+        num_vehicles = st.selectbox("select num Vehicle:", options = options_num_vehicles)
 
         submit = st.form_submit_button("Predict")
 
@@ -108,9 +107,11 @@ def main():
         driver_age = ordinal_encoder(driver_age, options_age)
         driving_experience = ordinal_encoder(driving_experience, options_driver_exp)
         light_conditions = ordinal_encoder(light_conditions, options_light_condition)
+        service_years = ordinal_encoder(service_years, options_service_vehicle)
+        num_vehicles = ordinal_encoder(num_vehicles, options_num_vehicles)
 
-        data = np.array([hour, day_of_week, defect_of_vehicle, vehicle_type, light_conditions, owner_of_vehicle,
-                           driving_experience, road_surface  ]).reshape(1,-1)
+        data = np.array([defect_of_vehicle, vehicle_type, light_conditions, owner_of_vehicle,
+                           driving_experience, road_surface, driver_age, service_years, num_vehicles  ]).reshape(1,-1)
 
         pred = get_prediction(data=data, model = model)
 
