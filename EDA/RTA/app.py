@@ -100,7 +100,7 @@ def main():
         owner_of_vehicle = ordinal_encoder(owner_of_vehicle, options_vehicle_owner)
 
 
-        data = np.array(['Defect_of_vehicle', 'Type_of_vehicle', 'Owner_of_vehicle']).reshape(1,-1)
+        data = np.array([Defect_of_vehicle, Type_of_vehicle, Owner_of_vehicle]).reshape(1,-1)
 
         pred = get_prediction(data=data, model = model)
 
